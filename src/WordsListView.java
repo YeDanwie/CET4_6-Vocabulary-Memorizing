@@ -10,11 +10,11 @@ import javafx.scene.text.Text;
 
 /**
  * @description
- * ´Ê¿âµ¥´ÊÁĞ±íµÄÒ³Ãæ
- * ÒÑ¾­¼Ç×¡µÄµ¥´Ê»áÔÚÆäºó´òÉÏ±ê¼Ç
+ * è¯åº“å•è¯åˆ—è¡¨çš„é¡µé¢
+ * å·²ç»è®°ä½çš„å•è¯ä¼šåœ¨å…¶åæ‰“ä¸Šæ ‡è®°
  */
 public class WordsListView{
-	//ÓÃÓÚÕ¹Ê¾µ¥´ÊµÄÁĞ±í
+	//ç”¨äºå±•ç¤ºå•è¯çš„åˆ—è¡¨
 	private ListView<BorderPane> listView; 
 	
 	public ListView<BorderPane> getListView(){
@@ -22,10 +22,10 @@ public class WordsListView{
 	}
 	
 	/**
-	 * @description ¸ù¾İ²ÎÊı»æÖÆÁĞ±íUI£¬ÏÔÊ¾µ¥´ÊÒÔ¼°ÊÇ·ñ±»¼Ç×¡µÄ±ê¼Ç
+	 * @description æ ¹æ®å‚æ•°ç»˜åˆ¶åˆ—è¡¨UIï¼Œæ˜¾ç¤ºå•è¯ä»¥åŠæ˜¯å¦è¢«è®°ä½çš„æ ‡è®°
 	 * 
-	 * @param vocabulary_list µ¥´ÊÁ´±í 
-	 * @param isMarked_list µ¥´ÊÊÇ·ñÒÑ±»¼Ç×¡µÄÁ´±í
+	 * @param vocabulary_list å•è¯é“¾è¡¨ 
+	 * @param isMarked_list å•è¯æ˜¯å¦å·²è¢«è®°ä½çš„é“¾è¡¨
 	 */
 	public void addItems(ArrayList<String> vocabulary_list, ArrayList<Boolean> isMarked_list) throws Exception{
 		ObservableList<BorderPane> data = FXCollections.observableArrayList();
@@ -43,7 +43,7 @@ public class WordsListView{
 	}
 	
 
-	//listViewÖĞµÄÃ¿¸öÏî¶¼ÊÇÒ»¸öBorderPane
+	//listViewä¸­çš„æ¯ä¸ªé¡¹éƒ½æ˜¯ä¸€ä¸ªBorderPane
 	private BorderPane getItem(String word, boolean isMarked) {
 		BorderPane bPane = new BorderPane();
 		
@@ -55,9 +55,5 @@ public class WordsListView{
 			bPane.setRight(new ImageView(new Image("file:Images\\correct.png")));
 		
 		return bPane;
-	}
-
-	public static void main(String[] args) {
-		
 	}
 }
