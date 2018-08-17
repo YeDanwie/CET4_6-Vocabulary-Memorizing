@@ -1,12 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -26,14 +24,13 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 /**
  * @description 
- * Á·Ï°ÌâÄ¿µÄÒ³Ãæ£¬ÌâÄ¿ÊÇ¼òµ¥µÄµ¥´Ê·­Òë£¬Ìâ¿âÊÇÎ´Á·Ï°ÕıÈ·µÄµ¥´Ê
- * ÌâĞÍÓĞÁ½ÖÖ£¬Ò»ÖÖÊÇ¸ù¾İÖĞÎÄÑ¡ÔñÓ¢ÎÄ£¬ÁíÒ»ÖÖÊÇ¸ù¾İÓ¢ÎÄÑ¡ÔñÖĞÎÄ¡£µ¥´ÊºÍÌâĞÍËæ»ú¡£
+ * ç»ƒä¹ é¢˜ç›®çš„é¡µé¢ï¼Œé¢˜ç›®æ˜¯ç®€å•çš„å•è¯ç¿»è¯‘ï¼Œé¢˜åº“æ˜¯æœªç»ƒä¹ æ­£ç¡®çš„å•è¯
+ * é¢˜å‹æœ‰ä¸¤ç§ï¼Œä¸€ç§æ˜¯æ ¹æ®ä¸­æ–‡é€‰æ‹©è‹±æ–‡ï¼Œå¦ä¸€ç§æ˜¯æ ¹æ®è‹±æ–‡é€‰æ‹©ä¸­æ–‡ã€‚å•è¯å’Œé¢˜å‹éšæœºã€‚
  */
-public class TestView extends Application {
+public class TestView {
 	private VBox vbox;
 	private Button aButton;
 	private Button bButton;
@@ -43,20 +40,20 @@ public class TestView extends Application {
 	private int answer;
 	private int answer_index;
 	private ArrayList<String> vocabulary_list;
-	private ArrayList<Integer> unmarked_list;//Î´Á·Ï°ÕıÈ·µÄµ¥´Ê
+	private ArrayList<Integer> unmarked_list;//æœªç»ƒä¹ æ­£ç¡®çš„å•è¯
 	private Text question;
 	private ImageView back_button;
 	
 	public TestView(ArrayList<String> vocabulary_list) {
 		this.vocabulary_list = vocabulary_list;
 		unmarked_list = new ArrayList<Integer>();
-		//Ä¬ÈÏ´Ê¿âÖĞµÄµ¥´Ê¾ùÎ´Á·Ï°¹ı
+		//é»˜è®¤è¯åº“ä¸­çš„å•è¯å‡æœªç»ƒä¹ è¿‡
 		for(int i = 0; i < vocabulary_list.size(); i++)
 			unmarked_list.add(i);
 		
 		vbox = new VBox();
 		
-		//»æÖÆ±³¾°
+		//ç»˜åˆ¶èƒŒæ™¯
 		BackgroundImage bImage = new BackgroundImage(new Image("file:Images\\blue_sky.jpg"),
 				BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 		vbox.setBackground(new Background(bImage));
@@ -66,14 +63,14 @@ public class TestView extends Application {
 		cButton = new Button();
 		dButton = new Button();
 		
-		//»æÖÆÌâÄ¿ÎÄ±¾
+		//ç»˜åˆ¶é¢˜ç›®æ–‡æœ¬
 		question = new Text();
 		question.setFill(Color.WHITE);
 		question.setFont(Font.font("", 20));
 		vbox.getChildren().add(question);
 		VBox.setMargin(question, new Insets(30, 0, 30, 40));
 		
-		//»æÖÆÑ¡ÏîA°´Å¥
+		//ç»˜åˆ¶é€‰é¡¹AæŒ‰é’®
 		aButton.setStyle("-fx-background-radius: 20;"
 						+ "-fx-font-size: 20;");
 		vbox.getChildren().add(aButton);
@@ -82,18 +79,18 @@ public class TestView extends Application {
 		aButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent ae) {
-				//0,1,2,3·Ö±ğ´ú±íÓÃ»§Ñ¡ÔñµÄA,B,C,DÑ¡Ïî
+				//0,1,2,3åˆ†åˆ«ä»£è¡¨ç”¨æˆ·é€‰æ‹©çš„A,B,C,Dé€‰é¡¹
 				choice = 0;
 				
 				if(unmarked_list.size()!=0)
 					judge();
 				
-				//½øÈëÏÂÒ»Ìâ
+				//è¿›å…¥ä¸‹ä¸€é¢˜
 				getQuiz();
 			}
 		});
 		
-		//»æÖÆÑ¡ÏîB°´Å¥
+		//ç»˜åˆ¶é€‰é¡¹BæŒ‰é’®
 		bButton.setStyle("-fx-background-radius: 20;"
 						+ "-fx-font-size: 20;");
 		vbox.getChildren().add(bButton);
@@ -111,7 +108,7 @@ public class TestView extends Application {
 			}
 		});
 		
-		//»æÖÆÑ¡ÏîC°´Å¥
+		//ç»˜åˆ¶é€‰é¡¹CæŒ‰é’®
 		cButton.setStyle("-fx-background-radius: 20;"
 						+ "-fx-font-size: 20;");
 		vbox.getChildren().add(cButton);
@@ -129,7 +126,7 @@ public class TestView extends Application {
 			}
 		});
 		
-		//»æÖÆÑ¡ÏîD°´Å¥
+		//ç»˜åˆ¶é€‰é¡¹DæŒ‰é’®
 		dButton.setStyle("-fx-background-radius: 20;"
 						+ "-fx-font-size: 20;");
 		vbox.getChildren().add(dButton);
@@ -148,7 +145,7 @@ public class TestView extends Application {
 			}
 		});
 		
-		//»æÖÆ·µ»Ø°´Å¥(Êµ¼ÊÊÇÒ»¸öÍ¼±ê)
+		//ç»˜åˆ¶è¿”å›æŒ‰é’®(å®é™…æ˜¯ä¸€ä¸ªå›¾æ ‡)
 		back_button = new ImageView(new Image("file:Images\\back.png"));
 		back_button.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
@@ -173,12 +170,12 @@ public class TestView extends Application {
 	}
 	
 	public void getQuiz() {
-		//Ê×ÏÈÅĞ¶ÏÌâ¿â(¼´Î´´ğ¶ÔµÄµ¥´Ê¿â)ÊÇ·ñ»¹ÓĞµ¥´Ê£¬Èç¹ûËùÓĞµ¥´ÊÒÑ±»Á·Íê£¬Ôòµ¯³ö¶Ô»°¿òÌáÊ¾²¢·µ»Ø
+		//é¦–å…ˆåˆ¤æ–­é¢˜åº“(å³æœªç­”å¯¹çš„å•è¯åº“)æ˜¯å¦è¿˜æœ‰å•è¯ï¼Œå¦‚æœæ‰€æœ‰å•è¯å·²è¢«ç»ƒå®Œï¼Œåˆ™å¼¹å‡ºå¯¹è¯æ¡†æç¤ºå¹¶è¿”å›
 		if(unmarked_list.size()==0) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle(null);
 			alert.setHeaderText(null);
-			alert.setContentText("ÄãÒÑ¾­Á·Íê´Ê¿âÖĞËùÓĞµ¥´Ê");
+			alert.setContentText("ä½ å·²ç»ç»ƒå®Œè¯åº“ä¸­æ‰€æœ‰å•è¯");
 			alert.show();
 			
 			return;
@@ -186,7 +183,7 @@ public class TestView extends Application {
 		
 		ArrayList<String> quiz = new ArrayList<String>();
 		
-		//Ëæ»úÉú³ÉÌâĞÍ£¬0ÊÇÓ¢ÎÄ-ÖĞÎÄ£¬1ÊÇÖĞÎÄ-Ó¢ÎÄ
+		//éšæœºç”Ÿæˆé¢˜å‹ï¼Œ0æ˜¯è‹±æ–‡-ä¸­æ–‡ï¼Œ1æ˜¯ä¸­æ–‡-è‹±æ–‡
 		int mode = (int)((Math.random())*2);
 		
 		ArrayList<Integer> four_nums = new ArrayList<Integer>();
@@ -194,27 +191,27 @@ public class TestView extends Application {
 		int answer_order = unmarked_list.get(answer_index);
 		four_nums.add(answer_order);
 		
-		//Ëæ»úÔö¼ÓÈı¸ö¸ÉÈÅÑ¡Ïî
+		//éšæœºå¢åŠ ä¸‰ä¸ªå¹²æ‰°é€‰é¡¹
 		while(four_nums.size()!=4) {
 			int random = (int)(Math.random()*vocabulary_list.size());
-			if(!four_nums.contains(random))//±ÜÃâÖØ¸´
+			if(!four_nums.contains(random))//é¿å…é‡å¤
 				four_nums.add(random);		
 		}
 		
-		//ÏÔÊ¾ÌâÄ¿
+		//æ˜¾ç¤ºé¢˜ç›®
 		quiz.add(vocabulary_list.get(answer_order).split("   ")[mode]);
-		question.setText("Çëµã»÷ÕıÈ·ÊÍÒå: " + quiz.get(0));
+		question.setText("è¯·ç‚¹å‡»æ­£ç¡®é‡Šä¹‰: " + quiz.get(0));
 		
-		//four_numsÖĞµÄµÚÒ»¸ö×ÜÊÇÕıÈ·´ğ°¸£¬ÎªÁËÈÃ´ğ°¸·Ö²¼Ëæ»ú£¬ËùÒÔ´òÂÒËü
+		//four_numsä¸­çš„ç¬¬ä¸€ä¸ªæ€»æ˜¯æ­£ç¡®ç­”æ¡ˆï¼Œä¸ºäº†è®©ç­”æ¡ˆåˆ†å¸ƒéšæœºï¼Œæ‰€ä»¥æ‰“ä¹±å®ƒ
 		Collections.shuffle(four_nums);
 		
-		//»ñÈ¡´ğ°¸ºÍËÄ¸öÑ¡Ïî
+		//è·å–ç­”æ¡ˆå’Œå››ä¸ªé€‰é¡¹
 		answer = four_nums.indexOf(answer_order);
 		for(int i = 0; i < four_nums.size(); i++) {
 			quiz.add(vocabulary_list.get(four_nums.get(i)).split("   ")[(mode+1)%2]);
 		}
 		
-		//ÔÙ°´Å¥ÉÏÏÔÊ¾Ñ¡Ïî
+		//å†æŒ‰é’®ä¸Šæ˜¾ç¤ºé€‰é¡¹
 		aButton.setText(quiz.get(1));
 		bButton.setText(quiz.get(2));
 		cButton.setText(quiz.get(3));
@@ -223,8 +220,8 @@ public class TestView extends Application {
 	
 	/**
 	 * @description
-	 * ÅĞ¶ÏÓÃ»§µÄÑ¡ÔñÊÇ·ñÕıÈ·£¬ÕıÎóÓë·ñ¶¼»á²¥·ÅÏàÓ¦µÄÒôĞ§£¬²¢ÇÒ¸üĞÂÍ³¼ÆÊı¾İ;
-	 * ÈôÑ¡ÔñÕıÈ·£¬µ±Ç°ÌâÄ¿¾Í»á´ÓÌâ¿âÖĞÒÆ³ı
+	 * åˆ¤æ–­ç”¨æˆ·çš„é€‰æ‹©æ˜¯å¦æ­£ç¡®ï¼Œæ­£è¯¯ä¸å¦éƒ½ä¼šæ’­æ”¾ç›¸åº”çš„éŸ³æ•ˆï¼Œå¹¶ä¸”æ›´æ–°ç»Ÿè®¡æ•°æ®;
+	 * è‹¥é€‰æ‹©æ­£ç¡®ï¼Œå½“å‰é¢˜ç›®å°±ä¼šä»é¢˜åº“ä¸­ç§»é™¤
 	 */
 	private void judge() {
 		if(choice==answer) {
@@ -233,11 +230,11 @@ public class TestView extends Application {
 			
 			StatisticsView.CORRECT_COUNT++;
 			int answered_count = StatisticsView.CORRECT_COUNT+StatisticsView.WRONG_COUNT;
-			StatisticsView.process_text.setText("ÄãÒÑ¾­Á·Ï°ÁË " + answered_count + " µÀÌâ"
-												+ "\nÆäÖĞ»Ø´ğ×¼È·ÂÊÈçÏÂÍ¼ËùÊ¾:");
+			StatisticsView.process_text.setText("ä½ å·²ç»ç»ƒä¹ äº† " + answered_count + " é“é¢˜"
+												+ "\nå…¶ä¸­å›ç­”å‡†ç¡®ç‡å¦‚ä¸‹å›¾æ‰€ç¤º:");
 			ObservableList<PieChart.Data> data_list = FXCollections.observableArrayList();
-			data_list.add(new PieChart.Data("ÕıÈ· "+100*StatisticsView.CORRECT_COUNT/answered_count+"%", StatisticsView.CORRECT_COUNT));
-			data_list.add(new PieChart.Data("´íÎó "+100*StatisticsView.WRONG_COUNT/answered_count+"%", StatisticsView.WRONG_COUNT));
+			data_list.add(new PieChart.Data("æ­£ç¡® "+100*StatisticsView.CORRECT_COUNT/answered_count+"%", StatisticsView.CORRECT_COUNT));
+			data_list.add(new PieChart.Data("é”™è¯¯ "+100*StatisticsView.WRONG_COUNT/answered_count+"%", StatisticsView.WRONG_COUNT));
 			StatisticsView.pieChart.setData(data_list);
 			
 			unmarked_list.remove(answer_index);
@@ -249,11 +246,11 @@ public class TestView extends Application {
 			
 			StatisticsView.WRONG_COUNT++;
 			int answered_count = StatisticsView.CORRECT_COUNT+StatisticsView.WRONG_COUNT;
-			StatisticsView.process_text.setText("ÄãÒÑ¾­Á·Ï°ÁË " + answered_count + " µÀÌâ"
-												+ "\nÆäÖĞ»Ø´ğ×¼È·ÂÊÈçÏÂÍ¼ËùÊ¾:");
+			StatisticsView.process_text.setText("ä½ å·²ç»ç»ƒä¹ äº† " + answered_count + " é“é¢˜"
+												+ "\nå…¶ä¸­å›ç­”å‡†ç¡®ç‡å¦‚ä¸‹å›¾æ‰€ç¤º:");
 			ObservableList<PieChart.Data> data_list = FXCollections.observableArrayList();
-			data_list.add(new PieChart.Data("ÕıÈ· "+100*StatisticsView.CORRECT_COUNT/answered_count+"%", StatisticsView.CORRECT_COUNT));
-			data_list.add(new PieChart.Data("´íÎó "+100*StatisticsView.WRONG_COUNT/answered_count+"%", StatisticsView.WRONG_COUNT));
+			data_list.add(new PieChart.Data("æ­£ç¡® "+100*StatisticsView.CORRECT_COUNT/answered_count+"%", StatisticsView.CORRECT_COUNT));
+			data_list.add(new PieChart.Data("é”™è¯¯ "+100*StatisticsView.WRONG_COUNT/answered_count+"%", StatisticsView.WRONG_COUNT));
 			StatisticsView.pieChart.setData(data_list);
 			
 			return;
@@ -272,17 +269,5 @@ public class TestView extends Application {
 	
 	public void setUnmarkedList(ArrayList<Integer> unmarked_list) {
 		this.unmarked_list = unmarked_list; 
-	}
-	
-	@Override
-	public void start(Stage stage) {
-		Scene scene = new Scene(this.getTestBox(), 580, 530);
-		this.getTestBox().prefWidthProperty().bind(scene.widthProperty());
-		stage.setScene(scene);
-		stage.show();
-	}
-	
-	public static void main(String[] args) {
-		launch(args);
 	}
 }
