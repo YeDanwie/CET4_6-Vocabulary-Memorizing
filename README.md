@@ -4,5 +4,6 @@
 播放音频的写法
 ```java
 Media media = new Media(media_path);
-new MediaPlayer(media).play();
+MediaPlayer mplayer = new MediaPlayer(media);
+mplayer.play();
 ```
